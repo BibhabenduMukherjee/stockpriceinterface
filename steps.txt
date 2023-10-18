@@ -1,0 +1,5 @@
+1. landing page 
+2. authentication -- email,social 
+3. csv parser to backed (selective)
+4. start traning job using csv file
+5. ouput from specific model
