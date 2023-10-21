@@ -10,7 +10,7 @@ function Pre({preTrainedModelNames} : pageProps) {
     function handleClick(){
         const formdata = new FormData();
         formdata.append("modelName" , preTrainedModelNames[0])
-       axios.post("http://127.0.0.1:7676/getPredictions" , formdata).then((response) => {
+       axios.post("http://127.0.0.1:3001/getPredictions" , formdata).then((response) => {
         debugger;
         console.log(response.data);
         
