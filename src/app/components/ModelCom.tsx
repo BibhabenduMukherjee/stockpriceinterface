@@ -17,7 +17,7 @@ function ModelCom({ data }: pageProps) {
          {data.preTrainedModelNames.map((item)=>(
             <div key={item}>
                 <Card className="bg-primary/10 rounded-xl cursor-pointer hover:opacity-75 transition border-0">
-                <Link   href={`/chat/${1}`} >
+                <Link   href={`/pretrainedmodel/${item}`} >
             <CardHeader className="flex items-center justify-center text-center text-muted-foreground">
               {/* <div className="relative w-32 h-32 ">
                 <Image
