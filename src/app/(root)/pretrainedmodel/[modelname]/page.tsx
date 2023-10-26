@@ -1,3 +1,4 @@
+import Gdata from "@/src/app/components/Gdata";
 import axios from "axios";
 
 interface ChatIdPageProps {
@@ -15,7 +16,13 @@ async function page({
     
     
     return (
-      <div>{params.modelname}</div>
+      <div className = "flex flex-col">
+
+         {/* graphs for incoming data */}
+          <h2 className = "text-center font-semibold text-2xl mt-2">This  is Gdata</h2>
+         <Gdata data = {response.data}/>
+
+      </div>
     )
   }
   

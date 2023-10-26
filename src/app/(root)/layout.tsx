@@ -8,7 +8,7 @@ function layout({ children }: { children: React.ReactNode }) {
   const user = getUser();
   return (
     <div className="h-full">
-      <Navbar profilePic={user.picture || ""} />
+      <Navbar profilePic={user.picture ? user.picture : ""} />
       <div className="hidden md:flex mt-16 h-full w-20 flex-col fixed inset-y-0">
         <Sidebar />
       </div>

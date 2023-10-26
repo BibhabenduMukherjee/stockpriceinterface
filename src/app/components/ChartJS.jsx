@@ -3,16 +3,16 @@ import React, { useEffect } from 'react'
 import Chart from "chart.js/auto";
 import {useRef} from "react"
 
-function ChartJS({dateValues, closeValue}) {
-    console.log(closeValue);
+function ChartJS({XplaneVals, YplaneVals}) {
+    console.log(YplaneVals);
     const options = {
         type: "line",
         data: {
-          labels: dateValues,
+          labels: XplaneVals,
           datasets : [{
             borderWidth: 2,
             radius: 0,
-            data : closeValue,
+            data : YplaneVals,
             bordercolor : "red",
             fill : false
           }]
@@ -25,10 +25,12 @@ function ChartJS({dateValues, closeValue}) {
           plugins: {
               legend: false
           },
+          responsive: true,
+          
           scales: {
               x: {
                   type: 'category',
-                  labels: dateValues
+                  labels: XplaneVals
               }
           }
       }
@@ -44,9 +46,9 @@ function ChartJS({dateValues, closeValue}) {
       };
    } , [])
   return (
-    <div>
-         <div style={{position:"relative" ,maxWidth : "1000px" , maxHeight: "700px", height : "90vh" , width:"90vw" }}>
-            <canvas ref= {elementEl}></canvas>
+    <div> 
+         <div className=" relative w-[300vw] h-[300vh]"  >
+            <canvas className="" ref= {elementEl}></canvas>
          </div>
     </div>
   )
