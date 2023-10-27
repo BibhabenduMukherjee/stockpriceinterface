@@ -2,33 +2,46 @@
 
 import React from 'react'
 import ChartComponent from "./ChartComponent";
-function ChartAnother({XplaneVals, YplaneVals , title}) {
+function ChartAnotherWithTwoGraph({XplaneVals, YPlaneValsClose, YPlaneValsOpen , titleForGOne,titleForGTwo , height,borderColorOne,backgroundColor  , borderColorTwo }) {
     const chartData = {
         labels: XplaneVals,
         datasets: [
           {
-            label: title,
-            data: YplaneVals,
-            fill: false,
-            borderColor: "rgb(75, 192, 192)",
-            tension: 0.1,
+            label: titleForGOne,
+            data: YPlaneValsClose,
+            fill: true,
+            borderColor: borderColorOne,
+            tension: 0.2,
+            backgroundColor: backgroundColor ? backgroundColor : "transparent"
+          
           },
+
+          {
+            label: titleForGTwo,
+            data: YPlaneValsOpen,
+            fill: true,
+            
+            borderColor: borderColorTwo,
+            tension: 0.2,
+            backgroundColor: backgroundColor ? backgroundColor : "transparent"
+          }
         ],
       };
     
       const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        animateScale :true
       };
     
   return (
     <div>
-         <ChartComponent data={chartData} options={chartOptions}  />
+         <ChartComponent data={chartData} options={chartOptions} height={height}  />
     </div>
   )
 }
 
-export default ChartAnother
+export default ChartAnotherWithTwoGraph
 
 
 
