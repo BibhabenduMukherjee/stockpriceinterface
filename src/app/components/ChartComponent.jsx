@@ -3,10 +3,13 @@ import React from 'react'
 import Chart from 'chart.js/auto';
 import { Line } from "react-chartjs-2";
 import { cn } from '@/lib/utils';
-function ChartComponent({ data, options, height }) {
-  console.log(`h-[${height}]`);
+function ChartComponent({ data, options }) {
+  //console.log(`h-[${height}]`);
   return (
-     <Line className= {`h-[${height}px]`} data={data} options={options} />
+    <div style={{ width: "90vw", height: `400px` }}>
+     <Line data={data} options={options} />
+    </div>
+   
   )
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ChartComponent from "./ChartComponent";
-function ChartAnotherWithTwoGraph({XplaneVals, YPlaneValsClose, YPlaneValsOpen , titleForGOne,titleForGTwo , height,borderColorOne,backgroundColor  , borderColorTwo }) {
+function ChartAnotherWithTwoGraph({XplaneVals, YPlaneValsClose, YPlaneValsOpen , titleForGOne,titleForGTwo ,borderColorOne,backgroundColor  , borderColorTwo }) {
     const chartData = {
         labels: XplaneVals,
         datasets: [
@@ -11,7 +11,8 @@ function ChartAnotherWithTwoGraph({XplaneVals, YPlaneValsClose, YPlaneValsOpen ,
             data: YPlaneValsClose,
             fill: true,
             borderColor: borderColorOne,
-            tension: 0.2,
+            borderWidth: 2,
+            tension: 0.1,
             backgroundColor: backgroundColor ? backgroundColor : "transparent"
           
           },
@@ -19,10 +20,11 @@ function ChartAnotherWithTwoGraph({XplaneVals, YPlaneValsClose, YPlaneValsOpen ,
           {
             label: titleForGTwo,
             data: YPlaneValsOpen,
+            borderWidth: 2,
             fill: true,
             
             borderColor: borderColorTwo,
-            tension: 0.2,
+            tension: 0.1,
             backgroundColor: backgroundColor ? backgroundColor : "transparent"
           }
         ],
@@ -31,12 +33,33 @@ function ChartAnotherWithTwoGraph({XplaneVals, YPlaneValsClose, YPlaneValsOpen ,
       const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        animateScale :true
+        elements: {
+          point: {
+            radius: 1, // Customize the point radius in line charts
+          },
+        },
+        scales: {
+          x: {
+          
+            title: {
+              display: true,
+              text: "X-Axis Label",
+            },
+          },
+          y: {
+            
+            title: {
+              display: true,
+              text: "Y-Axis Label",
+            },
+          },
+        },
+       
       };
     
   return (
-    <div>
-         <ChartComponent data={chartData} options={chartOptions} height={height}  />
+    <div className = "">
+         <ChartComponent data={chartData} options={chartOptions}  />
     </div>
   )
 }

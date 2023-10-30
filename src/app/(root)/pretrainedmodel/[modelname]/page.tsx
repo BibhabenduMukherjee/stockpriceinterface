@@ -19,7 +19,7 @@ async function page({
       <div className = "flex flex-col">
 
          {/* graphs for incoming data */}
-          <h2 className = "text-center font-semibold text-2xl mt-2">This  is Gdata</h2>
+          <h2 className = "text-center font-semibold text-2xl md:text-3xl mt-4 mb-6"> {params.modelname.toLowerCase()} dataset graph</h2>
          <Gdata data = {response.data}/>
 
       </div>
