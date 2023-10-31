@@ -60,12 +60,12 @@ import { log } from 'console';
 
   return (
     <div>
-       {
+       {/* {
        graphData  && <ChartJS  dateValues={graphData.dfDateVals} closeValue= {graphData.dfCloseVals}/>
        }   
        {graphData && graphData.status}
         <input accept=".csv"  type = "file" onChange={handleChange}/>
-        <button onClick={handleSubmit}>submit</button>
+        <button onClick={handleSubmit}>submit</button> */}
     </div>
   )
 }

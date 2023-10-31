@@ -32,7 +32,7 @@ export const Sidebar = () => {
     },
     {
       icon: Plus,
-      href: '/companion/new',
+      href: '/prediction',
       label: "Prediction",
       pro: false,
     },
