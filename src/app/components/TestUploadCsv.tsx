@@ -36,27 +36,50 @@ function TestUploadCsv() {
     ...(values as Record<string, any>),
   }));
   console.log(newData);
-  const filename = "your_filename"; // Provide the desired filename
+  const filename = "nifty50"; // Provide the desired filename
 
-  const apiUrl = "http://127.0.0.1:3001/save_data";
-  function fun() {
-    axios
-      .post(apiUrl, newData, { params: { filename } })
-      .then((response) => {
+  const apiUrl = "http://127.0.0.1:3001";
+  // function fun() {
+  //   axios
+  //     .post(apiUrl, newData, { params: { filename } })
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         console.log("Data saved successfully.");
+  //       } else {
+  //         console.error("Error:", response.status);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }
+
+  const downloadFile = () => {
+    fetch(`${apiUrl}/download_data?filename=${filename}`)
+      .then(response => {
         if (response.status === 200) {
-          console.log("Data saved successfully.");
+          // Trigger the file download
+          response.blob().then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+          });
         } else {
-          console.error("Error:", response.status);
+          console.error('Error:', response.status);
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(error => {
+        console.error('Error:', error);
       });
-  }
+  };
+
 
   return (
     <div>
-      <button onClick={fun}>click to upload</button>
+      <button onClick={downloadFile}>Download</button>
     </div>
   );
 }
