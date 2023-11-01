@@ -20,7 +20,7 @@ function IntroSelection() {
         
         <div className="mt-5 max-w-2xl">
           <h1 className="block font-semibold text-gray-800 text-4xl md:text-5xl lg:text-6xl ">
-            Make  High  <span className = "text-red-500">Quality Data</span>  Available
+            Make  High  <span className = " text-emerald-600">Quality Data</span>  Available
           </h1>
         </div>
         

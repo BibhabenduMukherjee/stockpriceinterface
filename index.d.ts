@@ -10,3 +10,14 @@ type CsvUploadType = {
 
 
 }
+
+type SingleCollection = {
+    code : string,
+    name : string,
+    lastSale : string,
+    netChange : string,
+    Change : string,
+    MarketCap : string,
+
+}
+
