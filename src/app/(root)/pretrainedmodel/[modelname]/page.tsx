@@ -12,7 +12,7 @@ async function page({
     
     console.log(params.modelname);
     const response = await axios.get(`http://127.0.0.1:3001/modelname?a=${params.modelname}`);
-    console.log(response.data);
+    //console.log(response.data);
     
     
     return (

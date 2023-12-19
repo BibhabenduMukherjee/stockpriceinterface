@@ -14,7 +14,7 @@ interface pageProps {
   data: InComingGData;
 }
 function Gdata({ data }: pageProps) {
-  console.log(data);
+ // console.log(data);
 
   return (
     <div>

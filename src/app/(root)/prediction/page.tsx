@@ -57,7 +57,7 @@ async function page() {
                  { item.Change} change rate, last sell {item.lastSale} and with a martket cap {item.MarketCap}
                  </p>
                 </div>
-                <Link href= {`/prediction/marketplace/${item.name}`}>
+                <Link href= {`/prediction/marketplace/${item.name}-${item.code}`}>
                 <div className = "flex   hover:cursor-pointer md:hover:bg-blue-400/20 mt-5 md:mt-8 w-full p-1 rounded-md shadow-lg  bg-blue-400/30 md:p-2 items-center ">
                 <BarChartBig className ="mr-3  md:h-6 h-4 w-4 md:w-6 " />
                 <p className = "text-sm  ">Make Prediction</p>
