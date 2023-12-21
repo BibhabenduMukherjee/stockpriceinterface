@@ -1,10 +1,9 @@
 import React from 'react'
-import TestCom from "../../components/testingcom/testCom"
+import Upload from "../../components/Upload"
 async function page() {
   return (
     <div>
-    <TestCom />
-    
+    <Upload/>    
     </div>
   )
 }
