@@ -326,7 +326,7 @@ async function page({ params }: PageProps) {
   //console.log(data.results);
 
   const [date, value] = dateandvalues(data.results);
-  console.log(date);
+  //console.log(date);
 
   const cls = value.map((item) => item.Close);
 
@@ -362,7 +362,7 @@ async function page({ params }: PageProps) {
 
          </div> */}
 
-        <div className="w-[490px] flex flex-col space-y-7  h-[490px] p-2 bg-pink-200">
+        <div className="w-[400px] items-center  flex flex-col space-y-7  h-[490px] p-2 bg-pink-200">
           {/* this part is used to show the interval data */}
           <ChartSmall
             name={s}
@@ -385,8 +385,8 @@ async function page({ params }: PageProps) {
         Simple To Get The Data
       </h2>
       <section className="max-w-5xl   pb-7  mx-auto flex flex-col space-y-2 ">
-        <div className="h-[240px]  bg-green-300  w-full rounded-md  mb-7 ">
-        <Range/>
+        <div className="h-[300px]  bg-green-300  w-full rounded-md  mb-7 ">
+        <Range code={code} />
         </div>
       </section>
     </div>
