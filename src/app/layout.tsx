@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
+import {Toaster} from "@/src/app/components/ui/toaster"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={" bg-fuchsia-100"}>{children}</body>
+      <body className={" bg-fuchsia-100"}>{children}
+      <Toaster  />
+      </body>
     </html>
   )
 }
