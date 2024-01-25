@@ -10,6 +10,8 @@ import {
 import ChartSmall from "@/src/app/components/ChartSmall";
 import { TableData } from "@/src/app/components/TableData";
 import Range from "@/src/app/components/Range";
+import GraphMarketPlace from "@/src/app/components/GraphMarketPlace";
+import UseFetchedDataCom from "@/src/app/components/UseFetchedDataCom";
 
 var data = {
   results: {
@@ -388,7 +390,17 @@ async function page({ params }: PageProps) {
         <div className="h-[300px]  bg-green-300  w-full rounded-md  mb-7 ">
         <Range code={code} />
         </div>
+       
       </section>
+
+      <div className = " h-[190px]">
+          <GraphMarketPlace/>
+        </div>
+
+        <div className = "  ">
+
+          <UseFetchedDataCom/>
+        </div>
     </div>
   );
 }

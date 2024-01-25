@@ -17,13 +17,64 @@ import {
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
+import { useGraphDataH } from "@/hooks/use-data";
+
+const dd = [
+  {
+    AdjClose: 177.570007,
+    Close: 177.570007,
+    Date: "2023-11-02",
+    High: 177.779999,
+    Low: 175.460007,
+    Open: 175.520004,
+    Volume: 77334800,
+  },
+  {
+    AdjClose: 173.570007,
+    Close: 170.570007,
+    Date: "2023-11-03",
+    High: 177.779999,
+    Low: 155.460007,
+    Open: 160.520004,
+    Volume: 77334400,
+  },
+  {
+    AdjClose: 173.570007,
+    Close: 171.570007,
+    Date: "2023-11-04",
+    High: 172.779999,
+    Low: 155.460007,
+    Open: 169.520004,
+    Volume: 77334400,
+  },
+  {
+    AdjClose: 173.570007,
+    Close: 177.570007,
+    Date: "2023-11-05",
+    High: 178.779999,
+    Low: 158.460007,
+    Open: 167.520004,
+    Volume: 77334400,
+  },
+  {
+    AdjClose: 173.570007,
+    Close: 177.570007,
+    Date: "2023-11-06",
+    High: 177.779999,
+    Low: 155.460007,
+    Open: 162.520004,
+    Volume: 7733455,
+  },
+];
 
 interface PageProps {
   code: string;
 }
 
 function Range({ code }: PageProps) {
+  const dataG = useGraphDataH();
   const [date, setDate] = React.useState<Date>();
+  const [loading, setLoading] = React.useState<boolean>(false);
   const { toast } = useToast();
   //const [dateerror, setDateError] = React.useState<boolean>(true)
   if (date) console.log(date);
@@ -38,23 +89,28 @@ function Range({ code }: PageProps) {
     console.log("end Date & start end", endDate, startDate);
     if (valid(startDate, endDate)) {
       console.log(" valid");
-      
-      
-    }else{
+    } else {
       toast({
         variant: "destructive",
         title: "Invalid Date Range",
         description: "Select Atleast 2 months previous date",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
+      return;
     }
-
-    //  const response = await axios.post("http://127.0.0.1:3000/api/getMarketStock" , {code,})
+    setLoading(true);
+    // const response = await axios.post(
+    //   "http://localhost:3000/api/getMarketStock",
+    //   { code, startDate, endDate }
+    // );
+    //console.log(response.data.results);
+    dataG.setData(dd);
+    setLoading(false);
   }
 
   return (
     <div>
-      <div className=" w-[500px] block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+      <div className=" w-[900px] block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
         <div className="border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50">
           Get Cuurent Data
         </div>
@@ -83,9 +139,10 @@ function Range({ code }: PageProps) {
               className="flex w-auto flex-col space-y-2 p-2"
             >
               <Select
-                onValueChange={(value) =>
-                  setDate(addDays(new Date(), parseInt(value)))
-                }
+                onValueChange={(value) => {
+                  setDate(addDays(new Date(), parseInt(value)));
+                  dataG.setData([]);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select" />
@@ -109,7 +166,6 @@ function Range({ code }: PageProps) {
                 />
               </div>
             </PopoverContent>
-            
           </Popover>
         </div>
       </div>
@@ -123,6 +179,8 @@ function Range({ code }: PageProps) {
           Get Data
         </Button>
       )}
+
+      {loading && <p>Loading ...</p>}
     </div>
   );
 }

@@ -38,21 +38,21 @@ function TestUploadCsv() {
   console.log(newData);
   const filename = "nifty50"; // Provide the desired filename
 
-  const apiUrl = "http://127.0.0.1:3001";
-  // function fun() {
-  //   axios
-  //     .post(apiUrl, newData, { params: { filename } })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         console.log("Data saved successfully.");
-  //       } else {
-  //         console.error("Error:", response.status);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // }
+  const apiUrl = "http://127.0.0.1:3001/save_data";
+  function fun() {
+    axios
+      .post(apiUrl, newData, { params: { filename } })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Data saved successfully.");
+        } else {
+          console.error("Error:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 
   const downloadFile = () => {
     fetch(`${apiUrl}/download_data?filename=${filename}`)
@@ -79,7 +79,7 @@ function TestUploadCsv() {
 
   return (
     <div>
-      <button onClick={downloadFile}>Download</button>
+      <button onClick={fun}>upload</button>
     </div>
   );
 }

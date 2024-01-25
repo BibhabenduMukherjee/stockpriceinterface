@@ -1,7 +1,7 @@
 "use client"
 import axios from 'axios';
 import React from 'react'
-const apiUrl = "http://127.0.0.1:3001/";
+const apiUrl = "http://127.0.0.1:3001/save_data";
 const data = {
     "2023-10-02": {
       Close: 173.75,
@@ -80,7 +80,7 @@ function Upload() {
   return (
     <div>
 
-<button onClick={downloadFile}>Download</button>
+<button onClick={fun}>Download</button>
     </div>
   )
 }
