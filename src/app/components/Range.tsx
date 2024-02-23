@@ -99,12 +99,12 @@ function Range({ code }: PageProps) {
       return;
     }
     setLoading(true);
-    // const response = await axios.post(
-    //   "http://localhost:3000/api/getMarketStock",
-    //   { code, startDate, endDate }
-    // );
-    //console.log(response.data.results);
-    dataG.setData(dd);
+    const response = await axios.post(
+      "http://localhost:3000/api/getMarketStock",
+      { code, startDate, endDate }
+    );
+    console.log(response.data.results);
+    dataG.setData(response.data.results);
     setLoading(false);
   }
 

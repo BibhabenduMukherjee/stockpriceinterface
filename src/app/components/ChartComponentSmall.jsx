@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 function ChartComponentSmall({ data, options }) {
   //console.log(`h-[${height}]`);
   return (
-    <div className = "" style ={ { width:400 , height:220 }} >
+    <div className = "" style ={ { width:500 , height:220 }} >
      <Line className= "" data={data} options={options} />
     </div>
    

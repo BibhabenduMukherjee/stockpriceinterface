@@ -324,13 +324,19 @@ async function page({ params }: PageProps) {
   const code = params.stock.split("-")[1];
 
   const s = decodeURIComponent(params.stock).split(" ")[0];
-  //const {data} = await axios.post("http://127.0.0.1:3000/api/getMarket", {code : code});
-  //console.log(data.results);
+  // const {data} = await axios.post("http://127.0.0.1:3000/api/getMarket", {code : code});
+  // const {data : data_interval} = await axios.post("http://127.0.0.1:3000/api/getMarketInterval", {code : code});
+   console.log(data.results);
 
   const [date, value] = dateandvalues(data.results);
-  //console.log(date);
+  console.log( "Stock data", date.slice(0,10));
+  //console.log ( "Date interval data" , data_interval.results.slice(0,10));
+  
 
   const cls = value.map((item) => item.Close);
+
+  // const cls_interval = data_interval.results.map((item:any) => item.Close);
+  //  const d_interval = data_interval.results.map((item:any) => item.Date);
 
   return (
     <div className="flex space-y-5 flex-col h-screen">
@@ -364,12 +370,12 @@ async function page({ params }: PageProps) {
 
          </div> */}
 
-        <div className="w-[400px] items-center  flex flex-col space-y-7  h-[490px] p-2 bg-pink-200">
+        <div className="w-[530px] items-center  flex flex-col space-y-7  h-[490px] p-2 bg-green-200">
           {/* this part is used to show the interval data */}
           <ChartSmall
             name={s}
-            XplaneVals={date.slice(1, 29)}
-            YPlaneValsClose={cls.slice(1, 29)}
+            XplaneVals={ date }
+            YPlaneValsClose={cls}
             borderColor="black"
           />
           <ChartSmall
@@ -380,7 +386,7 @@ async function page({ params }: PageProps) {
           />
         </div>
         <div className="w-[400px] mt-2  bg-blue-200">
-          <TableData />
+          <TableData data = {value.slice(5,12)}  />
         </div>
       </div>
       <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center ">

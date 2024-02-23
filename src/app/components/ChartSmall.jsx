@@ -10,7 +10,7 @@ function ChartSmall({name,XplaneVals,borderColor , YPlaneValsClose}) {
             data: YPlaneValsClose,
             fill: true,
             borderColor: borderColor,
-            borderWidth: 1.9,
+            borderWidth: 1.4,
             
             backgroundColor: "transparent"
           
