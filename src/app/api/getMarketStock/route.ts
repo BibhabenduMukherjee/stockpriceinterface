@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 export async function POST(req: Request, res: Response){
-  const {code,startDate,endDate} = await req.json()
+  const {code,pastFormattedDate,currentFormattedDate} = await req.json()
     const options = {
         method: 'GET',
         url: `${process.env.STOCK_API_URL_SECOND}/daily`,
         params: {
           symbol: `${code}`,
-          dateStart: `${startDate}`,
-          dateEnd: `${endDate}`
+          dateStart: `${pastFormattedDate}`,
+          dateEnd: `${currentFormattedDate}`
                 },
         headers: {
           'X-RapidAPI-Key': `${process.env.STOCK_API_KEY}`,

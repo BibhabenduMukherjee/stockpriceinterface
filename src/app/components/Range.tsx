@@ -1,12 +1,12 @@
 "use client";
 import * as React from "react";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { addDays, format } from "date-fns";
 
+import { addDays, format, setYear } from "date-fns";
+import { z } from "zod";
 import { cn, valid } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { Calendar } from "./ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Select,
   SelectContent,
@@ -18,6 +18,47 @@ import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
 import { useGraphDataH } from "@/hooks/use-data";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { useFileSelectedYear } from "@/hooks/use-year";
+
+const FormSchema = z.object({
+  numberOfYear: z
+    .string({
+      required_error: "Please select an email to display.",
+    })
+    .max(10),
+});
+
+function getDate(numberOfYears: string) {
+  // Convert the string numberOfYears to a number
+  let numberOfYearsNum: number = parseInt(numberOfYears);
+
+  // Get the current date
+  let currentDate = new Date();
+
+  // Calculate the date numberOfYears ago
+  let pastDate = new Date(
+    currentDate.getFullYear() - numberOfYearsNum,
+    currentDate.getMonth(),
+    currentDate.getDate()
+  );
+
+  // Format the dates as yyyy-MM-dd
+  let currentFormattedDate = currentDate.toISOString().split("T")[0];
+  let pastFormattedDate = pastDate.toISOString().split("T")[0];
+
+  return { currentFormattedDate, pastFormattedDate };
+}
 
 const dd = [
   {
@@ -76,37 +117,80 @@ function Range({ code }: PageProps) {
   const [date, setDate] = React.useState<Date>();
   const [loading, setLoading] = React.useState<boolean>(false);
   const { toast } = useToast();
+  const year = useFileSelectedYear();
   //const [dateerror, setDateError] = React.useState<boolean>(true)
-  if (date) console.log(date);
 
-  async function getData(date: Date) {
-    const originalDate = new Date(date);
-    const s = new Date(Date.now());
+  async function getData(data: z.infer<typeof FormSchema>) {
+    // const originalDate = new Date(date);
+    // const s = new Date(Date.now());
 
-    //console.log("Cuurent  date",s.toISOString());
-    const endDate = format(s, "yyyy-MM-dd");
-    const startDate = format(originalDate, "yyyy-MM-dd");
-    console.log("end Date & start end", endDate, startDate);
-    if (valid(startDate, endDate)) {
-      console.log(" valid");
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Invalid Date Range",
-        description: "Select Atleast 2 months previous date",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
-      });
-      return;
-    }
+    // //console.log("Cuurent  date",s.toISOString());
+    // const endDate = format(s, "yyyy-MM-dd");
+    // const startDate = format(originalDate, "yyyy-MM-dd");
+    // console.log("end Date & start end", endDate, startDate);
+    // console.log(SelectValue);
+
+    // if (valid(startDate, endDate)) {
+    //   console.log(" valid");
+    // } else {
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Invalid Date Range",
+    //     description: "Select Atleast 2 months previous date",
+    //     action: <ToastAction altText="Try again">Try again</ToastAction>,
+    //   });
+    //   return;
+    // }
+    // setLoading(true);
+    // const response = await axios.post(
+    //   "http://localhost:3000/api/getMarketStock",
+    //   { code, startDate, endDate }
+    // );
+    // console.log(response.data.results);
+    // dataG.setData(response.data.results);
+    // setLoading(false);
+
+    // number of years
+    console.log(data);
+    setLoading(true);
+    let { currentFormattedDate, pastFormattedDate } = getDate(
+      data.numberOfYear
+    );
+    console.log(
+      "currentFormattedDate --",
+      currentFormattedDate,
+      "---pastFormattedDate --",
+      pastFormattedDate
+    );
     setLoading(true);
     const response = await axios.post(
       "http://localhost:3000/api/getMarketStock",
-      { code, startDate, endDate }
+      { code, pastFormattedDate, currentFormattedDate }
     );
-    console.log(response.data.results);
-    dataG.setData(response.data.results);
+    debugger;
+    // console.log(response.data.results);
     setLoading(false);
+    year.setYear(data.numberOfYear);
+    // set to the global store
+    dataG.setData(response.data.results);
   }
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+
+    getData(data);
+  }
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
 
   return (
     <div>
@@ -121,7 +205,7 @@ function Range({ code }: PageProps) {
           <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
             Get top data sources with minimum effort
           </p>
-          <Popover>
+          {/* <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
@@ -166,11 +250,51 @@ function Range({ code }: PageProps) {
                 />
               </div>
             </PopoverContent>
-          </Popover>
+          </Popover> */}
+
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-2/3 space-y-6"
+            >
+              <FormField
+                control={form.control}
+                name="numberOfYear"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select The Year" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">1 year</SelectItem>
+                        <SelectItem value="2">2 year</SelectItem>
+                        <SelectItem value="3">3 year</SelectItem>
+                        <SelectItem value="4">4 year</SelectItem>
+                        <SelectItem value="5">5 year</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormDescription>
+                      You can manage email addresses in your{" "}
+                      <Link href="/examples/forms">email settings</Link>.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
         </div>
       </div>
 
-      {date && (
+      {/* {date && (
         <Button
           onClick={() => getData(date)}
           className="w-[188px] font-bold text-lg h-[50px] m-2    "
@@ -178,7 +302,7 @@ function Range({ code }: PageProps) {
         >
           Get Data
         </Button>
-      )}
+      )} */}
 
       {loading && <p>Loading ...</p>}
     </div>

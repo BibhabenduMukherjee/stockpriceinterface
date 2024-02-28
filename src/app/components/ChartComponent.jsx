@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 function ChartComponent({ data, options }) {
   //console.log(`h-[${height}]`);
   return (
-    <div style={{ width: "90vw", height: `400px` }}>
+    <div style={{ width: "90vw", height: `450px` }}>
      <Line data={data} options={options} />
     </div>
    

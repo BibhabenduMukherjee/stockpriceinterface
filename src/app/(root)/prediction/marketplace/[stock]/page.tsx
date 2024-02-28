@@ -12,7 +12,7 @@ import { TableData } from "@/src/app/components/TableData";
 import Range from "@/src/app/components/Range";
 import GraphMarketPlace from "@/src/app/components/GraphMarketPlace";
 import UseFetchedDataCom from "@/src/app/components/UseFetchedDataCom";
-
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 var data = {
   results: {
     "2023-11-07": {
@@ -321,17 +321,20 @@ interface PageProps {
 }
 
 async function page({ params }: PageProps) {
+  const { getUser } = getKindeServerSession();
+  const user = getUser();
+  console.log(user.given_name, user.id);
+
   const code = params.stock.split("-")[1];
 
   const s = decodeURIComponent(params.stock).split(" ")[0];
   // const {data} = await axios.post("http://127.0.0.1:3000/api/getMarket", {code : code});
   // const {data : data_interval} = await axios.post("http://127.0.0.1:3000/api/getMarketInterval", {code : code});
-   console.log(data.results);
+  console.log(data.results);
 
   const [date, value] = dateandvalues(data.results);
-  console.log( "Stock data", date.slice(0,10));
+  console.log("Stock data", date.slice(0, 10));
   //console.log ( "Date interval data" , data_interval.results.slice(0,10));
-  
 
   const cls = value.map((item) => item.Close);
 
@@ -374,7 +377,7 @@ async function page({ params }: PageProps) {
           {/* this part is used to show the interval data */}
           <ChartSmall
             name={s}
-            XplaneVals={ date }
+            XplaneVals={date}
             YPlaneValsClose={cls}
             borderColor="black"
           />
@@ -386,7 +389,7 @@ async function page({ params }: PageProps) {
           />
         </div>
         <div className="w-[400px] mt-2  bg-blue-200">
-          <TableData data = {value.slice(5,12)}  />
+          <TableData data={value.slice(5, 12)} />
         </div>
       </div>
       <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center ">
@@ -394,19 +397,25 @@ async function page({ params }: PageProps) {
       </h2>
       <section className="max-w-5xl   pb-7  mx-auto flex flex-col space-y-2 ">
         <div className="h-[300px]  bg-green-300  w-full rounded-md  mb-7 ">
-        <Range code={code} />
+          <Range code={code} />
         </div>
-       
       </section>
 
-      <div className = " h-[190px]">
-          <GraphMarketPlace/>
-        </div>
+      <div className=" h-[190px]">
+        <GraphMarketPlace />
+      </div>
 
-        <div className = "  ">
+      <div className="  ">
+        <UseFetchedDataCom
+          stockName={s}
+          userId={user.id}
+          userName={user.given_name}
+        />
+      </div>
 
-          <UseFetchedDataCom/>
-        </div>
+      {/* <div className="  ">
+        <UseFetchedDataCom userId={user.id} userName={user.given_name} />
+      </div> */}
     </div>
   );
 }
