@@ -2,6 +2,7 @@ import IntroSelectionMarket from "@/src/app/components/IntroSelectionMarket";
 import axios from "axios";
 import React from "react";
 import ChartMarket from "@/src/app/components/ChartMarket";
+import Donut from "../../../../components/testingcom/UserChartTest";
 import {
   dateandvalues,
   getClose,
@@ -13,6 +14,7 @@ import Range from "@/src/app/components/Range";
 import GraphMarketPlace from "@/src/app/components/GraphMarketPlace";
 import UseFetchedDataCom from "@/src/app/components/UseFetchedDataCom";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import dynamic from "next/dynamic";
 var data = {
   results: {
     "2023-11-07": {
@@ -320,6 +322,10 @@ interface PageProps {
   };
 }
 
+const ApexChartClientRendering = dynamic(() => import("@/src/app/components/testingcom/UserChartTest"),{
+  ssr : false,
+})
+
 async function page({ params }: PageProps) {
   const { getUser } = getKindeServerSession();
   const user = getUser();
@@ -396,7 +402,7 @@ async function page({ params }: PageProps) {
         Simple To Get The Data
       </h2>
       <section className="max-w-5xl   pb-7  mx-auto flex flex-col space-y-2 ">
-        <div className="h-[300px]  bg-green-300  w-full rounded-md  mb-7 ">
+        <div className="h-[300px] max-w-5xl mx-auto  bg-green-300  w-full rounded-md  mb-7 ">
           <Range code={code} />
         </div>
       </section>
@@ -411,6 +417,14 @@ async function page({ params }: PageProps) {
           userId={user.id}
           userName={user.given_name}
         />
+      </div>
+       
+      <ApexChartClientRendering/>
+
+
+      <div>
+
+        User
       </div>
 
       {/* <div className="  ">
