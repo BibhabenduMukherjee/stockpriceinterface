@@ -8,7 +8,7 @@ interface PageProps {
 // have the code of selected stock market
 function IntroSelectionMarket({ s }: PageProps) {
   return (
-    <div>
+    <div className="w-full">
       <div className="relative overflow-hidden">
         <div
           aria-hidden="true"

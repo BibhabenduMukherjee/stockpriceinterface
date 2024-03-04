@@ -11,7 +11,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 const font = Poppins({ weight: "600", subsets: ["latin"] });
 function Navbar({ profilePic }: { profilePic: string }) {
   return (
-    <div className="fixed w-full z-50 flex justify-between items-center py-2 px-4 h-[71px] border-b border-primary/10 bg-secondary">
+    <div className="   z-50 flex justify-between items-center py-2 px-4 h-[70px] border-b border-primary/10 bg-secondary">
       <div className="flex items-center">
         <MobileSidebar />
         <Link href="/">
@@ -25,7 +25,7 @@ function Navbar({ profilePic }: { profilePic: string }) {
           </h1>
         </Link>
       </div>
-      <div className="flex items-cente space-x-4 ">
+      <div className="flex items-cente space-x-2 ">
         <div className="mt-2">
           <Link href={"/logout"}>Sign out</Link>
         </div>

@@ -2,6 +2,7 @@
 import { useGraphDataH } from "@/hooks/use-data";
 import React from "react";
 import ChartMarket from "./ChartMarket";
+import {PredictionGrpTestData} from "../../../testgfordev"
 const dd = [
   {
     AdjClose: 177.570007,
@@ -49,8 +50,10 @@ const dd = [
     Volume: 7733455,
   },
 ];
-
-function GraphMarketPlace() {
+interface PageProps{
+  mode : string | null; 
+}
+function GraphMarketPlace({ mode  }: PageProps) {
   const dataG = useGraphDataH();
   const dates = dataG.data.map((item) => item.Date);
   const closes = dataG.data.map((item) => item.Close);
@@ -58,6 +61,26 @@ function GraphMarketPlace() {
   // const dates = dd.map((item) => item.Date)
   // const closes = dd.map((item) => item.Close)
   return (
+
+    <>
+
+    {mode === "dev" ? <>
+    <div className=" mx-auto ">
+      { PredictionGrpTestData.dates.length > 0 && (
+        <p className="text-orange-500 text-center text-3xl p-2">
+          Fetched Data Summary Graph
+        </p>
+      )}
+      {PredictionGrpTestData.dates.length > 0&& (
+        <ChartMarket
+          name={"s"}
+          XplaneVals={PredictionGrpTestData.dates}
+          YPlaneValsClose={PredictionGrpTestData.realdata}
+          borderColor={"green"}
+        />
+      )}
+    </div>
+    </> : <>
     <div className=" mx-auto ">
       {dataG.data.length > 0 && (
         <p className="text-orange-500 text-center text-3xl p-2">
@@ -73,6 +96,11 @@ function GraphMarketPlace() {
         />
       )}
     </div>
+    </>}
+    
+    
+    </>
+   
   );
 }
 
