@@ -22,24 +22,28 @@ import {
   } from "./ui/alert-dialog"
   
 import { MoreVertical, TrashIcon } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
 
-function FileDeleteAction() {
+function FileDeleteAction({file} : {file: Doc}) {
     const [isc , setIsc] = useState(false)
+    const deleteFile = useMutation(api.files.deleteFiles)
   return (
     <>
     <AlertDialog open = {isc} onOpenChange={setIsc}>
   {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
   <AlertDialogContent>
     <AlertDialogHeader>
-      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+      <AlertDialogTitle className="text-red-500">Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
+        This action cannot be undone. This will permanently delete your data
+        from our servers.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction>Continue</AlertDialogAction>
+      <AlertDialogAction className = "bg-red-500"  onClick={()=>{deleteFile({fileId : file._id})}}>Delete</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>

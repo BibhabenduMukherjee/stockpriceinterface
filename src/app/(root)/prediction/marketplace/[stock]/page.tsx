@@ -432,10 +432,9 @@ async function page({ params }: PageProps) {
         />
       </div>
 
-<div className = " mx-auto  relative top-[310px]">
-
-     <ResizeableFileTracker/>
-</div>
+      <div className=" mx-auto  relative top-[310px]">
+        <ResizeableFileTracker />
+      </div>
 
       <div className="mx-auto relative top-[360px]">
         <ApexChartClientRendering />

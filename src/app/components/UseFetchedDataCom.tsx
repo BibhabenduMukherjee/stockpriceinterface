@@ -11,7 +11,7 @@ import { api } from "../../../convex/_generated/api";
 interface PageProps {
   userName: string | null;
   userId: string | null;
-  stockName: string | null;
+  stockName: string ;
   mode: string | null;
 }
 function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
@@ -20,7 +20,7 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
 
   const dataG = useGraphDataH();
   const year = useFileSelectedYear();
-
+  const filename = `${stockName}_${userId}_${userName}_${year.year}`;
   // use for testing the convex endpoint 
   
   const createFile = useMutation(api.files.createFile)
@@ -30,7 +30,7 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
   const { toast } = useToast();
   function handleClick() {
     const newData = dataG.data;
-    const filename = `${stockName}_${userId}_${userName}_${year.year}`;
+ 
     const apiUrl = "http://127.0.0.1:3001/save_data";
     axios
       .post(apiUrl, newData, { params: { filename, userid: userId } })
@@ -74,7 +74,7 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
               <div>
                 <Button
                   onClick={()=>{
-                    createFile({stockname : "google" , filename : "google.csv"})
+                    createFile({stockname : stockName , filename : filename})
                   }}
                   variant={"secondary"}
                   className="p-4 w-[300px] flex space-x-2 hover:bg-black   font-semibold bg-slate-800 text-white"
