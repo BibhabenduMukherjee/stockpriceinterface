@@ -10,7 +10,7 @@ import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 interface PageProps {
   userName: string | null;
-  userId: string | null;
+  userId: string;
   stockName: string ;
   mode: string | null;
 }
@@ -74,7 +74,7 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
               <div>
                 <Button
                   onClick={()=>{
-                    createFile({stockname : stockName , filename : filename})
+                    createFile({stockname : `${stockName}-${year.year}y` , filename : filename , userId:userId})
                   }}
                   variant={"secondary"}
                   className="p-4 w-[300px] flex space-x-2 hover:bg-black   font-semibold bg-slate-800 text-white"

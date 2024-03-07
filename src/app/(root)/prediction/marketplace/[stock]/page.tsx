@@ -427,13 +427,13 @@ async function page({ params }: PageProps) {
         <UserFetched
           mode={mode}
           stockName={s}
-          userId={user.id}
+          userId={user.id!}
           userName={user.given_name}
         />
       </div>
 
       <div className=" mx-auto  relative top-[310px]">
-        <ResizeableFileTracker />
+        <ResizeableFileTracker userId = {user.id!} />
       </div>
 
       <div className="mx-auto relative top-[360px]">

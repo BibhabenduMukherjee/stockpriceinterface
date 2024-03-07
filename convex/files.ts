@@ -5,20 +5,24 @@ export const createFile = mutation({
     args : {
         stockname : v.string(),
         filename : v.string(),
+        userId : v.string(),
     },
    async handler(ctx , args) {
     await ctx.db.insert("files" , {
        stockname : args.stockname,
-       filename : args.filename
+       filename : args.filename,
+       userId : args.userId,
     })
    }
 })
 
 
 export const getFiles  = query({
-    args : {},
+    args : {
+        userId : v.string(),
+    },
     async handler(ctx,args){
-        return await ctx.db.query("files").collect();
+        return (await ctx.db.query("files").collect()).filter((q) => q.userId === args.userId);
     }
 })
 
