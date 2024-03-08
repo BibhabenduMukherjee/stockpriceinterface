@@ -339,6 +339,7 @@ const UserFetched = dynamic(
 
 async function page({ params }: PageProps) {
   const mode = process.env.DEVELOPMENT_MODE ? "dev" : "prod";
+  const backendurl = process.env.NEXT_PUBLIC_BACKEND_URL
   const { getUser } = getKindeServerSession();
   const user = getUser();
   console.log(user.given_name, user.id);
@@ -348,10 +349,10 @@ async function page({ params }: PageProps) {
   const s = decodeURIComponent(params.stock).split(" ")[0];
   // const {data} = await axios.post("http://127.0.0.1:3000/api/getMarket", {code : code});
   // const {data : data_interval} = await axios.post("http://127.0.0.1:3000/api/getMarketInterval", {code : code});
-  console.log(data.results);
+  //console.log(data.results);
 
   const [date, value] = dateandvalues(data.results);
-  console.log("Stock data", date.slice(0, 10));
+  //console.log("Stock data", date.slice(0, 10));
   //console.log ( "Date interval data" , data_interval.results.slice(0,10));
 
   const cls = value.map((item) => item.Close);
@@ -433,17 +434,17 @@ async function page({ params }: PageProps) {
       </div>
 
       <div className=" mx-auto  relative top-[310px]">
-        <ResizeableFileTracker userId = {user.id!} />
+        <ResizeableFileTracker userId = {user.id!} backendurl = {backendurl!} />
       </div>
 
-      <div className="mx-auto relative top-[360px]">
+      {/* <div className="mx-auto relative top-[360px]">
         <ApexChartClientRendering />
-      </div>
+      </div> */}
 
       {/* <div className="bg-blue-500 mt-[20px]">User</div> */}
 
-      <div>
-        {/* <footer className="bg-gradient-to-r from-violet-200 to-pink-200 font-sans">
+      <div className = "relative top-[330px]">
+        <footer className="bg-gradient-to-r from-violet-200 to-pink-200 font-sans">
     <div className="container px-6 py-12 mx-auto">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div className="sm:col-span-2">
@@ -491,7 +492,7 @@ async function page({ params }: PageProps) {
         </div>
         <p className="font-sans p-8  text-black text-start md:text-center md:text-lg md:p-4">© 2023 You Company Inc. All rights reserved.</p>
     </div>
-</footer> */}
+</footer>
       </div>
     </div>
   );

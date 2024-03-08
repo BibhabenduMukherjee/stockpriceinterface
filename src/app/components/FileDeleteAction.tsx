@@ -59,7 +59,7 @@ function FileDeleteAction({file} : {file: Doc}) {
             Delete</DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={()=>{setIsc(true)}}  className="text-red-600 hover:cursor-pointer  flex space-x-1 gap-1 ">
+        <DropdownMenuItem onClick={()=>{setIsc(true)}}  className=" hover:cursor-pointer  flex space-x-1 gap-1 ">
         <FileDown className = "w-4 h-4"/>
             Download</DropdownMenuItem>
         <DropdownMenuSeparator />
