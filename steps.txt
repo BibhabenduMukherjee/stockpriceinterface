@@ -3,3 +3,28 @@
 3. csv parser to backed (selective)
 4. start traning job using csv file
 5. ouput from specific model
+
+
+
+
+
+
+// email sending fucntion  design
+             
+StartTraning Button ---- [CLICK] ----- {userId}[1] ----
+
+
+
+
+Database Check For first time user 
+
+   1 . get user equal to === userId  
+   2 . send email status if false then send the email
+
+_id , count , userId    email
+xxca    1        0       true
+xxcb    1        1       false
+
+
+false --- ok that means user don't have email frm us
+
