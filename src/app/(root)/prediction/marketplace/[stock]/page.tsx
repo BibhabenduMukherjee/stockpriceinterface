@@ -434,7 +434,7 @@ async function page({ params }: PageProps) {
       </div>
 
       <div className=" mx-auto  relative top-[310px]">
-        <ResizeableFileTracker userId = {user.id!} backendurl = {backendurl!} />
+        <ResizeableFileTracker  useremail = {user.email!} userId = {user.id!} backendurl = {backendurl!} />
       </div>
 
       {/* <div className="mx-auto relative top-[360px]">
