@@ -46,6 +46,17 @@ from api import *
 def index():
     return "Welcome to Stock Price Prediction API"
 
+@app.route('/pretrainedModel')
+def get_user_files():
+    userid = request.args.get("userId")
+    user_folder = os.path.join(f"{os.getcwd()}/pretrained", userid)
+    if os.path.exists(user_folder) and os.path.isdir(user_folder):
+        files = os.listdir(user_folder)
+
+        return jsonify({'files': files}), 200
+    else:
+        return jsonify({'error': 'User folder not found'}), 404
+
 
 @app.route('/get-csv' , methods=['GET'])
 def get_csv():
