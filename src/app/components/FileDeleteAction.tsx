@@ -25,10 +25,16 @@ import { FileDown, MoreVertical, TrashIcon } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
+import axios from "axios";
 
 function FileDeleteAction({file} : {file: Doc}) {
     const [isc , setIsc] = useState(false)
     const deleteFile = useMutation(api.files.deleteFiles)
+
+    async function downloadFileFromServer(filename : string , userId : string) { 
+     location.replace(`http://127.0.0.1:3001/get-csv?userId=${userId}&fileName=${filename}`)
+     //const res = await axios.get()
+    }
   return (
     <>
     <AlertDialog open = {isc} onOpenChange={setIsc}>
@@ -43,7 +49,11 @@ function FileDeleteAction({file} : {file: Doc}) {
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction className = "bg-red-500"  onClick={()=>{deleteFile({fileId : file._id})}}>Delete</AlertDialogAction>
+      <AlertDialogAction className = "bg-red-500"  onClick={()=>{
+        deleteFile({fileId : file._id})
+        
+       // deleFileFromServer(file.filename , file.userId)
+        }}>Delete</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
@@ -59,7 +69,7 @@ function FileDeleteAction({file} : {file: Doc}) {
             Delete</DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={()=>{setIsc(true)}}  className=" hover:cursor-pointer  flex space-x-1 gap-1 ">
+        <DropdownMenuItem onClick={()=>{downloadFileFromServer(file.filename,file.userId)}}  className=" hover:cursor-pointer  flex space-x-1 gap-1 ">
         <FileDown className = "w-4 h-4"/>
             Download</DropdownMenuItem>
         <DropdownMenuSeparator />

@@ -67,6 +67,9 @@ export const PredictionGrpTestData : PGTD= {
   ],
 };
 
+
+
+
 console.log(PredictionGrpTestData.prediction.length);
 console.log(PredictionGrpTestData.dates.length);
 console.log(PredictionGrpTestData.realdata.length);

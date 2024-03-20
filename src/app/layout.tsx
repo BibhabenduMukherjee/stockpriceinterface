@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
      
-      <body className={" bg-white"}>
+      <body className={" bg-gray-200"}>
       <ConvexClientProvider>
         {children}
         <Toaster  />

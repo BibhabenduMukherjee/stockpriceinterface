@@ -242,7 +242,7 @@ function ResizeableFileTracker({
                   </div>
 
                   <div className="hover:bg-black/10 hover:cursor-pointer p-1">
-                    <FileDeleteAction file={item} />
+                    <FileDeleteAction file={item}  />
                   </div>
                 </div>
               ))}

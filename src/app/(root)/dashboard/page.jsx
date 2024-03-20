@@ -5,21 +5,31 @@ import Hello from "../../components/Hello";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import Well from "../../components/Well";
-import ModelCom from "../../components/ModelCom";
+
+import { Captions, getCaption } from "@/captionstock";
+import dynamic from "next/dynamic";
+
+const ModelCom = dynamic(
+  () => import("../../components/ModelCom"),
+  {
+    ssr: false,
+  }
+);
 
 async function page() {
   const { getUser } = getKindeServerSession();
   const user = getUser();
-  const pretrainedModel = await axios.post("http://127.0.0.1:3001/getPreTrainedModels" ,{});
-  //console.log(pretrainedModel.data.preTrainedModelNames);
+  const pretrainedModel = await axios.get(`http://127.0.0.1:3001/pretrainedModel?userId=${user.id}`);
+
+  //console.log(pretrainedModel.data.files);
   if (!user || !user.id) redirect("/login");
 
   return (
     <div className="flex flex-col space-y-2 ">
       <Well username={user.given_name} />
       <hr/>
-      <section>
-        <ModelCom data = {pretrainedModel.data}/>
+      <section className="">
+        <ModelCom caption={Captions}  data = {pretrainedModel.data}/>
       </section>
     </div>
   );
