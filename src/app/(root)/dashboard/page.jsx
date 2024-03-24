@@ -29,7 +29,7 @@ async function page() {
       <Well username={user.given_name} />
       <hr/>
       <section className="">
-        <ModelCom caption={Captions}  data = {pretrainedModel.data}/>
+        <ModelCom caption={Captions}  data = {pretrainedModel.data} userId= {user.id}/>
       </section>
     </div>
   );

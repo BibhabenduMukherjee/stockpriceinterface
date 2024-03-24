@@ -12,23 +12,22 @@ interface Acc {
 interface pageProps {
   data: Acc;
   caption: string[];
+  userId : string;
 }
 
-function ModelCom({ data, caption }: pageProps) {
+function ModelCom({ data, caption , userId }: pageProps) {
   return (
     <div className="max-w-6xl mx-auto mt-[20px]">
-      {data.files.length < 0 ? (
+      {data.files.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10">
           {data.files.map((item) => (
-            <div key={item}>
+            <div key={item} className = "hover:cursor-pointer">
+              <Link href={`dashboard/mymodel?modelname=${item.split(".")[0]}&userid=${userId}`}>
               <div className="border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
                 <div className="p-4 pt-2 h-[180px]">
                   <div className="mb-8 ">
-                    <a
-                      href="/dashboard/trainedmodel"
-                      className="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 inline-block"
-                    >
-                      {item.split(".")[0].split("_")[0] === "Ad"
+                    <p className = " font-bold mt-2 hover:text-red-500">
+                    {item.split(".")[0].split("_")[0] === "Ad"
                         ? item.split(".")[0].split("_")[0] +
                           " " +
                           item.split(".")[0].split("_")[4] +
@@ -37,13 +36,17 @@ function ModelCom({ data, caption }: pageProps) {
                           " " +
                           item.split(".")[0].split("_")[4] +
                           " years"}
-                    </a>
-                    <p className="text-gray-700 text-sm">
+                    </p>
+                     
+                    
+                    <p className="text-gray-700 mt-[20px]  text-sm">
                       {caption[Math.floor(Math.random() * caption.length)]}
                     </p>
                   </div>
                 </div>
               </div>
+              </Link>
+             
             </div>
           ))}
         </div>
@@ -68,3 +71,5 @@ function ModelCom({ data, caption }: pageProps) {
 }
 
 export default ModelCom;
+
+//http://localhost:3000/dashboard/mymodel?modelname=Apple_kp_9065799bc371497f9d4f031c655cb6f9_Bibhabendu_2.h5&userid=kp_9065799bc371497f9d4f031c655cb6f9

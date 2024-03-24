@@ -1,10 +1,12 @@
 "use client";
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
+
 import {PredictionGrpTestData} from "../../../../testgfordev"
 class UserChartTest extends Component {
   constructor(props) {
     super(props);
+    
 
     this.state = {
       options: {
