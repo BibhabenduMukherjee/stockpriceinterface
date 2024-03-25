@@ -21,7 +21,7 @@ class PredictedGraph extends React.Component {
         {
           type: "line",
           name: "RealDate",
-          color: "#EE6D7A",
+          color: "#d16bdd",
           data: data.predictions.realData,
         },
         {
@@ -74,16 +74,18 @@ class PredictedGraph extends React.Component {
           },
         },
         fill: {
-          colors: ["#776bcd", "#e4bcad"],
-          opacity: 1,
+        //   colors: [ "#009562"],
+         
           type: "gradient",
           gradient: {
-            shade: "dark",
-            shadeIntensity: 0.3,
+            shade: 'dark',
+         
+            shadeIntensity: 1,
             opacityFrom: 1,
-            opacityTo: 0.6,
+            opacityTo: 0.2,
             stops: [0, 100],
           },
+        
         },
       },
 
@@ -113,22 +115,6 @@ class PredictedGraph extends React.Component {
           new Date(lastdate).getTime()
         );
         break;
-      case "one_year":
-        ApexCharts.exec(
-          "area-datetime",
-          "zoomX",
-          new Date("27 Feb 2012").getTime(),
-          new Date("27 Feb 2013").getTime()
-        );
-        break;
-      case "ytd":
-        ApexCharts.exec(
-          "area-datetime",
-          "zoomX",
-          new Date("01 Jan 2013").getTime(),
-          new Date("27 Feb 2013").getTime()
-        );
-        break;
       case "all":
         ApexCharts.exec(
           "area-datetime",
@@ -143,9 +129,19 @@ class PredictedGraph extends React.Component {
 
   render() {
     return (
-      <div>
-        <section>{this.state.modelname}</section>
-        <div id="chart">
+      <div className = "flex flex-col gap-6 ">
+        {/* <div >
+        <div className = " text-black h-[200px] flex flex-col gap-4  mx-auto max-w-4xl p-4">
+        <p className = "text-4xl font-bold">{this.state.modelname}</p>
+        <div className = "w-full flex justify-around space-x-7 items-start bg-blue-600 h-[50px]">
+          <div className = "w-[140px] bg-black">1</div>
+          <div className = "w-[140px] bg-black">2</div>
+          <div className = "w-[140px] bg-black">3</div>
+        </div>
+        </div>
+       </div> */}
+      
+        <div id="chart" className = "">
           <div className=" w-[400px] mx-auto">
             <button
               id="one_month"
@@ -172,12 +168,12 @@ class PredictedGraph extends React.Component {
             </button>
           </div>
 
-          <div id="chart-timeline" className="w-[700px]  max-w-5xl mx-auto">
+          <div id="chart-timeline" className="w-[770px]   max-w-5xl mx-auto">
             <ReactApexChart
               options={this.state.options}
               series={this.state.series}
               type="area"
-              height={430}
+              height={500}
             />
           </div>
         </div>
