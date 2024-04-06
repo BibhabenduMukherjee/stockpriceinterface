@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(root)/dashboard/page.jsx", "src/app/components/TestUploadCsv.jsx", "testgfordev.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(root)/dashboard/page.tsx", "src/app/components/TestUploadCsv.jsx", "testgfordev.ts"],
   "exclude": ["node_modules"]
 }

@@ -6,7 +6,7 @@ function ChartSmall({name,XplaneVals,borderColor , YPlaneValsClose}) {
         labels: XplaneVals,
         datasets: [
           {
-            label: `${name}'s TimeSeries`,
+            label: `${name}'s TimeSeries (5 min)`,
             data: YPlaneValsClose,
             fill: true,
             borderColor: borderColor,
@@ -31,14 +31,14 @@ function ChartSmall({name,XplaneVals,borderColor , YPlaneValsClose}) {
           
             title: {
               display: true,
-              text: "X-Axis Label",
+              text: "Date-Time (1d/5min)",
             },
           },
           y: {
             
             title: {
               display: true,
-              text: "Y-Axis Label",
+              text: "Price",
             },
           },
         },

@@ -1,3 +1,21 @@
+
+export const Code : any = {
+    Apple : "AAPL",
+    Microsoft : "MSFT",
+    Amazon : "AMZN",
+    Nvda : "NVDA",
+    Meta : "META",
+    Tesla : "TSLA",
+    MasterCard : "MA",
+    Netflix : "NFLX",
+    Accenture : "ACN",
+    Salesforce : "CRM",
+    Walmart : 'WMT',
+    Visa : "V",
+    Jp : "JPM"
+
+
+}
 export const Collection:SingleCollection[]  = [
     {
         code : "AAPL",

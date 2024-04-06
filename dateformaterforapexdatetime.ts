@@ -74,3 +74,30 @@ export const manipulateDate = (currentDate: string, option: string) => {
 
   return formattedDate;
 };
+
+export const rsiformattor = (data: any) => {
+  const formattedDate = [];
+  for (let i = 0; i < data.length; i++) {
+    const [date, value] = data[i];
+    const item = {
+      date: date,
+      value: Number(value).toFixed(2),
+    };
+    formattedDate.push(item);
+  }
+  return formattedDate;
+};
+export const rangeclosevalformatter = (data: any) =>{
+  const formattedCloseRange = [];
+  for (let i = 0; i < data.length; i++) {
+    const [range, percentage] = data[i];
+    console.log("Each data",data[i]);
+    
+    const item = {
+      range: range,
+      percentage: Number(percentage).toFixed(2),
+    };
+    formattedCloseRange.push(item);
+  }
+  return formattedCloseRange;
+}

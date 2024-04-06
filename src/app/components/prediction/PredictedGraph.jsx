@@ -8,8 +8,8 @@ class PredictedGraph extends React.Component {
     super(props);
     const { modelName, lastdate, dates, data } = this.props;
     console.log(modelName);
-    console.log(data.predictions.predictedData.length);
-    //console.log(dates);
+    console.log(data.predictions.predictedData);
+    console.log(dates);
 
     this.state = {
       lastdate: lastdate,
@@ -22,12 +22,12 @@ class PredictedGraph extends React.Component {
           type: "line",
           name: "RealDate",
           color: "#d16bdd",
-          data: data.predictions.realData,
+          data: data.predictions.realData.slice(-150),
         },
         {
           type: "area",
           name: "Prediction",
-          data: data.predictions.predictedData,
+          data: data.predictions.predictedData.slice(-150),
         },
       ],
       options: {
@@ -62,16 +62,37 @@ class PredictedGraph extends React.Component {
         },
 
         xaxis: {
+          
           type: "datetime",
-          categories: dates,
+          categories: dates.slice(-150),
           labels: {
             format: "dd/MM/yyyy",
           },
+        },
+        yaxis : {
+          stepSize : 10,
+          axisBorder: {
+            show: true,
+            color: '#78909C',
+            offsetX: 0,
+            offsetY: 0
+        },
+        axisTicks: {
+          show: false,
+          borderType: 'solid',
+          color: '#78909C',
+          width: 6,
+          offsetX: 0,
+          offsetY: 0
+      },
         },
         tooltip: {
           x: {
             format: "dd MMM yyyy",
           },
+          onDatasetHover: {
+            highlightDataSeries: true,
+        },
         },
         fill: {
         //   colors: [ "#009562"],

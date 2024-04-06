@@ -74,8 +74,8 @@ function GraphMarketPlace({ mode  }: PageProps) {
       {PredictionGrpTestData.dates.length > 0&& (
         <ChartMarket
           name={"s"}
-          XplaneVals={PredictionGrpTestData.dates}
-          YPlaneValsClose={PredictionGrpTestData.realdata}
+          XplaneVals={PredictionGrpTestData.dates.slice(-10)}
+          YPlaneValsClose={PredictionGrpTestData.realdata.slice(-10)}
           borderColor={"green"}
         />
       )}
@@ -90,8 +90,8 @@ function GraphMarketPlace({ mode  }: PageProps) {
       {dataG.data.length > 0 && (
         <ChartMarket
           name={"s"}
-          XplaneVals={dates}
-          YPlaneValsClose={closes}
+          XplaneVals={dates.slice(-80)}
+          YPlaneValsClose={closes.slice(-80)}
           borderColor={"green"}
         />
       )}

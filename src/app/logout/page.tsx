@@ -1,13 +1,15 @@
-import Image from 'next/image'
-import {LogoutLink, getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from 'next/navigation';
-export default async function Home() {
 
+import dynamic from 'next/dynamic';
+const LogoutPage = dynamic(()=> import("@/src/app/components/LogoutPage"), {ssr : false})
+export default async function Home() {
+ const URL = process.env.NEXT_PUBLIC_API_URL!
+ //console.log(URL);
+ 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
      Logout page
 
-     <LogoutLink>Log Out</LogoutLink>
+     <LogoutPage URL={URL} />
      
 
     </main>

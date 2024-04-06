@@ -27,12 +27,12 @@ import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import axios from "axios";
 
-function FileDeleteAction({file} : {file: Doc}) {
+function FileDeleteAction({file,url} : {file: Doc , url: string}) {
     const [isc , setIsc] = useState(false)
     const deleteFile = useMutation(api.files.deleteFiles)
 
     async function downloadFileFromServer(filename : string , userId : string) { 
-     location.replace(`http://127.0.0.1:3001/get-csv?userId=${userId}&fileName=${filename}`)
+     location.replace(`${url}/get-csv?userId=${userId}&fileName=${filename}`)
      //const res = await axios.get()
     }
   return (

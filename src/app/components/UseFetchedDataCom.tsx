@@ -9,18 +9,21 @@ import { useFileSelectedYear } from "@/hooks/use-year";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 interface PageProps {
-  userName: string | null;
-  userId: string;
+ 
   stockName: string ;
   mode: string | null;
+  backendurl : string
 }
-function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
+function UseFetchedDataCom({ mode, stockName , backendurl}: PageProps) {
 
   //* may be insert the stockName and fileName to the convex which then shown as list of  uploaded files *//
 
   const dataG = useGraphDataH();
   const year = useFileSelectedYear();
-  const filename = `${stockName}_${userId}_${userName}_${year.year}`;
+  const user = JSON.parse(localStorage.getItem("user")!)
+  const filename = `${stockName}_bm_${user._id}_${user.user_name}_${year.year}`;
+  console.log(filename);
+  
   // use for testing the convex endpoint 
   
   const createFile = useMutation(api.files.createFile)
@@ -31,13 +34,13 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
   function handleClick() {
     const newData = dataG.data;
  
-    const apiUrl = "http://127.0.0.1:3001/save_data";
+    const apiUrl = `${backendurl}/save_data`;
     axios
-      .post(apiUrl, newData, { params: { filename, userid: userId } })
+      .post(apiUrl, newData, { params: { filename, userid: `bm_${user._id}` }  })
       .then((response) => {
         if (response.status === 200) {
           console.log("Data saved successfully.");
-          createFile({stockname : `${stockName}-${year.year}y` , filename : filename , userId:userId})
+          createFile({stockname : `${stockName}-${year.year}y` , filename : filename , userId: `bm_${user._id}`})
           toast({
             variant: "default",
             title: "Data Successfully Uploaded",
@@ -62,20 +65,19 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
       });
   }
 
- 
 
- 
 
   return (
     <>
       {mode === "dev" ? (
         <>
-          <div className="relative flex items-center   justify-center max-w-5xl top-[290px]  mx-auto  text-white/75 w-[600px] h-[100px] ">
+          <div className="relative flex items-center   justify-center top-[290px]  mx-auto  text-white/75 w-[400px] h-[100px] ">
             <div>
               <div>
                 <Button
                   onClick={()=>{
-                    createFile({stockname : `${stockName}-${year.year}y` , filename : filename , userId:userId})
+                   // createFile({stockname : `${stockName}-${year.year}y` , filename : filename , userId:userId})
+                   alert("ok")
                   }}
                   variant={"secondary"}
                   className="p-4 w-[300px] flex space-x-2 hover:bg-black   font-semibold bg-slate-800 text-white"
@@ -108,7 +110,7 @@ function UseFetchedDataCom({ mode, stockName, userId, userName }: PageProps) {
               <div>
                 <div>
                   <Button
-                    onClick={handleClick}
+                  onClick={handleClick}
                     variant={"secondary"}
                     className="p-4 w-[300px] flex space-x-2 hover:bg-black   font-semibold bg-slate-800 text-white"
                   >
