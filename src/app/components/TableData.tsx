@@ -46,10 +46,10 @@ import {
   export function TableData({data}  : any) {
     return (
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableCaption>A list of your recent market prices</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px] font-bold">Close</TableHead>
+         
             <TableHead className = "font-bold">Open</TableHead>
             <TableHead className="text-center font-bold" >High</TableHead>
             <TableHead className="text-center font-bold">Low</TableHead>
@@ -58,10 +58,10 @@ import {
         <TableBody>
           {data.map((i:any) => (
             <TableRow key={i.Close}>
-              <TableCell className="">{parseFloat(i.Close).toFixed(2)}</TableCell>
-              <TableCell>{parseFloat(i.Open).toFixed(2)}</TableCell>
-              <TableCell className="text-center">{parseFloat(i.High).toFixed(2)}</TableCell>
-              <TableCell className="text-center">{parseFloat(i.Low).toFixed(2)}</TableCell>
+              {/* <TableCell className="">{parseFloat(i.Close).toFixed(2)}</TableCell> */}
+              <TableCell>{parseFloat(i.open).toFixed(2)}</TableCell>
+              <TableCell className="text-center">{parseFloat(i.high).toFixed(2)}</TableCell>
+              <TableCell className="text-center">{parseFloat(i.low).toFixed(2)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

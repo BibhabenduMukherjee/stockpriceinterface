@@ -1,33 +1,35 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export default async function middleware(req: NextRequest) {
-  // Check if the request URL starts with "/login" (exclude login page from check)
-
+export default async function middleware(req : NextRequest) {
+  // Get session cookie (if it exists)
   const session = req.cookies.get('session');
 
-  
-
-  if (req.nextUrl.pathname.startsWith('/login') && session ) {
-    return NextResponse.redirect(new URL('/dashboard', req.url));
+  // Handle root URL (/) redirection based on session status
+  if (req.nextUrl.pathname === '/') {
+    if (session) {
+      // User is logged in, redirect to dashboard
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    } else {
+      // No session, redirect to login
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
   }
-  
-  if (req.nextUrl.pathname.startsWith('/login') ||req.nextUrl.pathname.startsWith('/signup') ) {
+
+  // Handle login and signup page access (allow without session)
+  if (req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/signup')) {
     return NextResponse.next();
   }
 
-  // Check if there's a session object in the request
- 
-  
-  
+  // Enforce authentication for other protected routes
   if (!session) {
-    // Redirect to the login page if no session is found
     return NextResponse.redirect(new URL('/login', req.url));
   }
 
-  // User is authenticated, continue with the request
+  // Allow access to protected routes with valid session
   return NextResponse.next();
 }
+
 export const config = {
-    matcher: ['/dashboard','/prediction'],
-  }
+  matcher: ['/dashboard', '/prediction', '/'], // Include the root URL (/) in the matcher
+};

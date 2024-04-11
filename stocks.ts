@@ -16,6 +16,24 @@ export const Code : any = {
 
 
 }
+
+export const Company : any = {
+    AAPL :   "Apple",
+    MSFT : "Microsoft",
+    AMZN : "Amazon",
+    NVDA : "Nvda",
+    META : "Meta",
+    TSLA : "Tesla",
+    MA : "MasterCard",
+    NFLX : "Netflix",
+    ACN : "Accenture",
+    CRM : "Salesforce",
+    WMT : 'Walmart',
+    V : "Visa",
+    JPM : "Jp"
+
+
+}
 export const Collection:SingleCollection[]  = [
     {
         code : "AAPL",

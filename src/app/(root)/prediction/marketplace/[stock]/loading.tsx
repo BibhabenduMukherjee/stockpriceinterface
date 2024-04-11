@@ -2,7 +2,9 @@ import React from 'react'
 
 function loading() {
   return (
-    <div>loading</div>
+    <div className="w-full h-screen bg-gray-400/30 animate-pulse">
+         
+    </div>
   )
 }
 

@@ -18,7 +18,7 @@ function Well({ username }: { username: string }) {
   return (
     <section className=" flex flex-col space-y-1 max-w-7xl mx-auto w-full ml-5 text-3xl md:text-5xl h-24 text-slate-950 text-left  ">
       <p className={roboto.className}>
-        {"Hello"} {username},{" "}
+        {"Wellcome"} {username}{" "}
       </p>
       <p className="text-xl md:text-2xl">
         Get Stock Prediction From Pretrained model

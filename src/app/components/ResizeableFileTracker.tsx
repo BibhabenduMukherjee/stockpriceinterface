@@ -134,7 +134,7 @@ function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
       direction="horizontal"
       className=" w-[900px] rounded-lg border"
     >
-      <ResizablePanel defaultSize={40}>
+      <ResizablePanel defaultSize={60}>
         <div className="flex flex-col h-[380px] items-center justify-center p-6">
           <span className="font-semibold"> List of uploaded files </span>
           <hr className="h-[10px]" />

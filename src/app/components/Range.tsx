@@ -6,7 +6,7 @@ import { z } from "zod";
 import { cn, valid } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import toast, { Toaster } from "react-hot-toast"
 import {
   Select,
   SelectContent,
@@ -117,7 +117,7 @@ function Range({ code , furl }: PageProps) {
   const dataG = useGraphDataH();
   const [date, setDate] = React.useState<Date>();
   const [loading, setLoading] = React.useState<boolean>(false);
-  const { toast } = useToast();
+  
   const year = useFileSelectedYear();
   //const [dateerror, setDateError] = React.useState<boolean>(true)
 
@@ -177,16 +177,13 @@ function Range({ code , furl }: PageProps) {
   }
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-
-    getData(data);
+   toast.promise(
+    getData(data),
+   {
+     loading: 'Fetching...',
+     success: <b>Done!</b>,
+     error: <b>Could not fetch.</b>,
+   })
   }
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -195,6 +192,8 @@ function Range({ code , furl }: PageProps) {
 
   return (
     <div>
+      <Toaster position="top-right"
+  reverseOrder={false}/>
       <div className="  max-w-4xl  block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] ">
         <div className="border-b-2 border-neutral-100 px-6 py-3 ">
           Get Cuurent Data

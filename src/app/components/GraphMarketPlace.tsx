@@ -87,14 +87,18 @@ function GraphMarketPlace({ mode  }: PageProps) {
           Fetched Data Summary Graph
         </p>
       )}
-      {dataG.data.length > 0 && (
+      {dataG.data.length > 0 ? (
         <ChartMarket
           name={"s"}
           XplaneVals={dates.slice(-80)}
           YPlaneValsClose={closes.slice(-80)}
           borderColor={"green"}
         />
-      )}
+      ) : <div className = "flex items-center h-[400px] justify-center max-w-6xl mx-auto ">
+             <div className = "text-center">
+              <p className = "text-red-600 text-[21px] ">Collected Data Shows here</p>
+             </div>
+        </div>}
     </div>
     </>}
     

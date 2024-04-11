@@ -17,13 +17,13 @@ const Well = dynamic(() => import("../../components/Well"), {
 
 async function page() {
   //if (!user || !user.id) redirect("/login");
-
+   const url = process.env.NEXT_PUBLIC_BACKEND_URL!
   return (
     <div className="flex flex-col space-y-2 ">
       <Well username={""} />
       <hr />
       <section className="">
-        <ModelCom caption={Captions} />
+        <ModelCom caption={Captions} url = {url} />
       </section>
     </div>
   );

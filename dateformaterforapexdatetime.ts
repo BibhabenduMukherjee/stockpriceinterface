@@ -91,7 +91,7 @@ export const rangeclosevalformatter = (data: any) =>{
   const formattedCloseRange = [];
   for (let i = 0; i < data.length; i++) {
     const [range, percentage] = data[i];
-    console.log("Each data",data[i]);
+    //console.log("Each data",data[i]);
     
     const item = {
       range: range,

@@ -13,9 +13,10 @@ interface Acc {
 interface pageProps {
 
   caption: string[];
+  url : string
 }
 
-function ModelCom({ caption }: pageProps) {
+function ModelCom({ caption , url }: pageProps) {
   const [data, setData] = useState<string[]>([]);
   const [load, setLoad] = useState<boolean>(false);
   let user = JSON.parse(localStorage.getItem("user")!)
@@ -25,7 +26,7 @@ function ModelCom({ caption }: pageProps) {
     async function call() {
       try {
         const pretrainedModel = await axios.get(
-          `http://127.0.0.1:3001/pretrainedModel?userId=${userId}`
+          `${url}/pretrainedModel?userId=${userId}`
         );
      console.log(pretrainedModel.data);
        const finaldata = [...pretrainedModel.data.files , ...pretrainedModel.data.adfiles]
@@ -66,11 +67,11 @@ function ModelCom({ caption }: pageProps) {
                         {item.split(".")[0].split("_")[0] === "Ad"
                           ? item.split(".")[0].split("_")[1] +
                             " " +
-                            item.split(".")[0].split("_")[5] +
+                            item.split(".")[0].split("_")[6] +
                             " years (advanced)"
                           : item.split(".")[0].split("_")[0] +
                             " " +
-                            item.split(".")[0].split("_")[4] +
+                            item.split(".")[0].split("_")[5] +
                             " years"}
                       </p>
 

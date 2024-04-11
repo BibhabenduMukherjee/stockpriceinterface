@@ -117,7 +117,7 @@ function Login({ url }: { url: string }) {
         <div className = "flex w-[800px] mt-[40px] bg-pink-400/50">
           <div className = " h-[50px] mt-3  ml-[86px]">
             <div className = "p-2">
-              <p>Don't have account { " " }?
+              <p>Do not have account { " " }?
                 <a href="/signup" className = "text-blue-600 ml-2">Sign up</a>
                  </p> 
             </div>

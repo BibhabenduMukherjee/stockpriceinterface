@@ -22,12 +22,12 @@ class PredictedGraph extends React.Component {
           type: "line",
           name: "RealDate",
           color: "#d16bdd",
-          data: data.predictions.realData.slice(-150),
+          data: data.predictions.realData.slice(-190),
         },
         {
           type: "area",
           name: "Prediction",
-          data: data.predictions.predictedData.slice(-150),
+          data: data.predictions.predictedData.slice(-190),
         },
       ],
       options: {
@@ -64,13 +64,13 @@ class PredictedGraph extends React.Component {
         xaxis: {
           
           type: "datetime",
-          categories: dates.slice(-150),
+          categories: dates.slice(-190),
           labels: {
             format: "dd/MM/yyyy",
           },
         },
         yaxis : {
-          stepSize : 10,
+          stepSize : 15,
           axisBorder: {
             show: true,
             color: '#78909C',
@@ -97,15 +97,8 @@ class PredictedGraph extends React.Component {
         fill: {
         //   colors: [ "#009562"],
          
-          type: "gradient",
-          gradient: {
-            shade: 'dark',
-         
-            shadeIntensity: 1,
-            opacityFrom: 1,
-            opacityTo: 0.2,
-            stops: [0, 100],
-          },
+          type: "",
+          
         
         },
       },
@@ -164,7 +157,7 @@ class PredictedGraph extends React.Component {
       
         <div id="chart" className = "">
           <div className=" w-[400px] mx-auto">
-            <button
+            {/* <button
               id="one_month"
               onClick={() => this.updateData("one_month", this.state.lastdate)}
               className={
@@ -186,7 +179,7 @@ class PredictedGraph extends React.Component {
               }
             >
               2M
-            </button>
+            </button> */}
           </div>
 
           <div id="chart-timeline" className="w-[770px]   max-w-5xl mx-auto">

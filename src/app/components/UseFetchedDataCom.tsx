@@ -8,20 +8,24 @@ import axios from "axios";
 import { useFileSelectedYear } from "@/hooks/use-year";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { Code, Company } from "@/stocks";
 interface PageProps {
  
   stockName: string ;
   mode: string | null;
   backendurl : string
+  code : string
 }
-function UseFetchedDataCom({ mode, stockName , backendurl}: PageProps) {
+function UseFetchedDataCom({ mode, stockName , backendurl, code}: PageProps) {
 
   //* may be insert the stockName and fileName to the convex which then shown as list of  uploaded files *//
 
   const dataG = useGraphDataH();
   const year = useFileSelectedYear();
   const user = JSON.parse(localStorage.getItem("user")!)
-  const filename = `${stockName}_bm_${user._id}_${user.user_name}_${year.year}`;
+  const comname = Company[code]
+  //const ucode = Code[code]
+  const filename = `${comname}_${code}_bm_${user._id}_${user.user_name}_${year.year}`;
   console.log(filename);
   
   // use for testing the convex endpoint 
