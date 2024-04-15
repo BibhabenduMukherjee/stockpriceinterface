@@ -69,7 +69,7 @@ function ConvexEmailTest({token}:{token:string}) {
 
       <button
         onClick={() => {
-          sendFirstTrainingSuccess({ userId: "12463" });
+         // sendFirstTrainingSuccess({ userId: "12463" });
         }}
       >
         Click
