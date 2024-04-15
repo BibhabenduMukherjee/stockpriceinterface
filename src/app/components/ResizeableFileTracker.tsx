@@ -23,20 +23,25 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import { toast } from "./ui/use-toast";
+
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/server";
 import axios from "axios";
 import Link from "next/link";
 import { Checkbox } from "./ui/checkbox";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+
 const FormSchema = z.object({
   stockname: z.string(),
   advanced: z.boolean().default(false).optional(),
 });
 
-function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
-  const user = JSON.parse(localStorage.getItem("user")!);
-  let userId = `bm_${user._id}`;
-  let useremail = `${user.user_email}`;
+function ResizeableFileTracker({ backendurl , aurl , furl }: { backendurl: string  , aurl : string , furl : string}) {
+  const userLocal = JSON.parse(localStorage.getItem("user")!);
+  console.log(furl);
+  
+  let userId = `bm_${userLocal._id}`;
+  let useremail = `${userLocal.user_email}`;
   const files = useQuery(api.files.getFiles, { userId });
   const [stockn, setStockn] = useState("");
   const [stockfilename, setFilename] = useState("");
@@ -62,11 +67,17 @@ function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
           if (user.emailSts === false) {
             //@ts-ignore
             try {
-              const responseData = await axios.post(
-                "http://localhost:3000/api/v2",
-                { useremail: useremail }
+              const responseData =  axios.post(
+                `${aurl}/sendemail`,
+                { 
+                  email: useremail,
+                  user_name : user.user_name,
+                  modelName : user.modelName,
+                  modelurl : `${furl}/dashboard/mymodel?modelname=${user.modelName}&userid=${user.userId}`
+                
+                }
               );
-              console.log(responseData);
+              //console.log(responseData);
             } catch (err) {
               console.log(err);
             }
@@ -91,55 +102,40 @@ function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
     if (data.advanced === true) {
       try{
         const response = await axios.post(`${backendurl}/startTrainingAd`, formData)
+        sendFirstTrainingSuccess({ userId: userId , user_name : userLocal.user_name , modelName : `Ad_${stockfilename}`});
       }catch(err){
-        toast({
-          title: "Model Information",
-          description: (
-            <div className="mt-2 w-[340px] text-md font-bold rounded-md bg-red-500 p-4">
-              Something went wrong
-            </div>
-          ),
-        });
+        toast.error("Something went wrong")
       }
     }else{
       try{
         const response = await axios.post(`${backendurl}/startTraining`, formData)
+        sendFirstTrainingSuccess({ userId: userId ,user_name : userLocal.user_name , modelName : stockfilename});
       }catch(err){
-        toast({
-          title: "Model Information",
-          description: (
-            <div className="mt-2 w-[340px] text-md font-bold rounded-md bg-red-500 p-4">
-              Something went wrong
-            </div>
-          ),
-        });
+        toast.error("Something went wrong" , {position : "top-right"})
       }
     }
   ;
     // logic for sending email for those user who have try the model creation first
-    sendFirstTrainingSuccess({ userId: userId });
+    
+    toast.success("Trained Successfully" , {position : "top-right"})
     setIsLoading(false);
-    toast({
-      title: "Model Information",
-      description: (
-        <div className="mt-2 w-[340px] text-md font-bold rounded-md bg-green-500 p-4">
-          Model Trained Successfully
-        </div>
-      ),
-    });
+    
   }
 
   return (
-    <ResizablePanelGroup
+    <>
+      <Toaster/>
+     <ResizablePanelGroup
       direction="horizontal"
       className=" w-[900px] rounded-lg border"
     >
+     
       <ResizablePanel defaultSize={60}>
         <div className="flex flex-col h-[380px] items-center justify-center p-6">
           <span className="font-semibold"> List of uploaded files </span>
           <hr className="h-[10px]" />
 
-          <div className="w-[330px] p-2 flex flex-col h-[400px] overflow-y-scroll">
+          <div className="w-[300px] p-2 flex flex-col h-[400px] overflow-y-scroll">
             {files?.map((item) => (
               <div
                 onClick={() => {
@@ -151,7 +147,7 @@ function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
               >
                 <div className="flex space-x-2 items-center">
                   <FileText />
-                  <p className=" font-medium">{item.stockname}</p>
+                  <p className=" font-medium text-[12px] md:text-[15px]">{item.stockname}</p>
                 </div>
 
                 <div className="hover:bg-black/10 hover:cursor-pointer p-1">
@@ -166,8 +162,8 @@ function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
       <ResizablePanel defaultSize={75}>
         <ResizablePanelGroup direction="vertical">
           <ResizableHandle />
-          <ResizablePanel defaultSize={75} maxSize={30}>
-            <div className="flex flex-col items-center w-[500px]  p-2">
+          <ResizablePanel  defaultSize={75} >
+            <div className="flex flex-col items-center w-full md:w-[500px]  p-2">
               <div className="font-semibold mx-auto w-full   ml-6 mt-4  ">
                 <Form {...form}>
                   <form
@@ -241,6 +237,8 @@ function ResizeableFileTracker({ backendurl }: { backendurl: string }) {
         </ResizablePanelGroup>
       </ResizablePanel>
     </ResizablePanelGroup>
+    </>
+   
   );
 }
 

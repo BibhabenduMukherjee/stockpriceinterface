@@ -64,10 +64,10 @@ function Login({ url }: { url: string }) {
       <p className="  text-black underline underline-offset-1 text-2xl mt-[100px]">
         Fill Up Login Form
       </p>
-      <div className="flex flex-col  items-center h-[450px] w-[850px] mt-[30px] rounded-md shadow-xl bg-white ">
+      <div className="flex flex-col  items-center h-[400px] w-[390px]  md:h-[450px] md:w-[850px] mt-[30px] rounded-md shadow-xl bg-white ">
         
-        <div className = "flex items-center mt-[68px] space-x-12">
-        <div className="w-[300px]   ">
+        <div className = "flex items-center mt-[68px] md:space-x-12">
+        <div className="md:w-[300px] w-[100px] hidden md:block   ">
           <Image
             src={"/tp.png"}
             className="mx-auto"
@@ -80,7 +80,7 @@ function Login({ url }: { url: string }) {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className=" w-[400px] space-y-3"
+              className=" w-[300px] md:w-[400px] space-y-3"
             >
               <FormField
                 control={form.control}
@@ -114,8 +114,8 @@ function Login({ url }: { url: string }) {
         </div>
         </div>
      
-        <div className = "flex w-[800px] mt-[40px] bg-pink-400/50">
-          <div className = " h-[50px] mt-3  ml-[86px]">
+        <div className = "flex  w-[350px] md:w-[800px] mt-[40px] bg-pink-400/50">
+          <div className = " h-[50px] mt-3  md:ml-[86px] ml-[40px]">
             <div className = "p-2">
               <p>Do not have account { " " }?
                 <a href="/signup" className = "text-blue-600 ml-2">Sign up</a>

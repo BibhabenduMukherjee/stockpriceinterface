@@ -1,17 +1,19 @@
 import Image from 'next/image'
 import {RegisterLink, LoginLink, getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from 'next/navigation';
+import {LandingNavbar} from './components/landing/LandingNavbar';
+import {LandingHero} from './components/landing/LandingHero';
+import {LandingContent} from './components/landing/LandingContent';
 export default async function Home() {
 
-  const {getUser} =  getKindeServerSession();
-  const user = getUser();
-  if(!user) redirect("/login")
-  if(user) redirect("/dashboard");
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="">
      
 
-    home  page
+     <LandingNavbar/>
+    <LandingHero />
+   
+
 
 
     </main>

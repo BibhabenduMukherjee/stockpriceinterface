@@ -26,9 +26,9 @@ export const updateEmailSts = mutation({
 });
 
 export const sendFirstTrainingSuccess = mutation({
-  args: { userId: v.string() },
+  args: { userId: v.string() , user_name : v.string() , modelName: v.string() },
   handler: async (ctx, args) => {
-    const { userId } = args;
+    const { userId , user_name , modelName } = args;
     // Check the user is already present
     const isPresent = await ctx.db
       .query("useremailcount")
@@ -39,6 +39,8 @@ export const sendFirstTrainingSuccess = mutation({
     await ctx.db.insert("useremailcount", {
       userId: userId,
       count: 1,
+      user_name : user_name,
+      modelName : modelName,
       emailSts: false,
     });
     // send the same record

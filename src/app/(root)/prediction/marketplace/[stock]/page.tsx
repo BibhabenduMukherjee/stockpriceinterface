@@ -345,6 +345,8 @@ async function page({ params }: PageProps) {
   // const { getUser } = getKindeServerSession();
   // const user = getUser();
   // console.log(user.given_name, user.id);
+  console.log(furl);
+  
 
   const code = params.stock.split("-")[1];
 
@@ -356,9 +358,9 @@ async function page({ params }: PageProps) {
   // const cls_interval = data_interval.results.map((item:any) => item.Close);
   // const d_interval = data_interval.results.map((item:any) => item.Date);
   return (
-    <div className="flex    space-y-5 flex-col h-screen">
+    <div className="flex items-center    space-y-5 flex-col h-screen">
       <IntroSelectionMarket s={s} />
-      <div className=" w-[440px]   h-[500px]">
+      <div className="    h-[500px]">
           <ChartMarket name={s}  XplaneVals={data.info.Date.slice(-90)}
             YPlaneValsClose={data.info.Close.slice(-90)}  borderColor="red" />
       </div>
@@ -382,7 +384,7 @@ async function page({ params }: PageProps) {
         Simple To Get The Data
       </h2>
 
-      <section className=" w-[600px]    pb-7  mx-auto flex flex-col space-y-2 ">
+      <section className=" md:w-[800px] w-[390px]    pb-7  mx-auto flex flex-col space-y-2 ">
         <div className="h-[350px]   mx-auto   w-full rounded-md  mb-7 ">
           <Range code={code} furl={furl} />
         </div>
@@ -397,7 +399,7 @@ async function page({ params }: PageProps) {
       </div>
 
       <div className=" mx-auto max-w-7xl w-[400px]  md:w-[750px] relative top-[310px]">
-        <ResizeableFileTracker backendurl={backendurl!} />
+        <ResizeableFileTracker backendurl={backendurl!} aurl = {aurl} furl ={furl} />
       </div>
 
       {/* <div className="mx-auto relative top-[360px]">

@@ -9,6 +9,7 @@ import { useFileSelectedYear } from "@/hooks/use-year";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Code, Company } from "@/stocks";
+import toast, { Toaster } from "react-hot-toast";
 interface PageProps {
  
   stockName: string ;
@@ -24,20 +25,11 @@ function UseFetchedDataCom({ mode, stockName , backendurl, code}: PageProps) {
   const year = useFileSelectedYear();
   const user = JSON.parse(localStorage.getItem("user")!)
   const comname = Company[code]
-  //const ucode = Code[code]
   const filename = `${comname}_${code}_bm_${user._id}_${user.user_name}_${year.year}`;
-  console.log(filename);
-  
   // use for testing the convex endpoint 
-  
   const createFile = useMutation(api.files.createFile)
-
-
-  console.log(dataG.data);
-  const { toast } = useToast();
   function handleClick() {
     const newData = dataG.data;
- 
     const apiUrl = `${backendurl}/save_data`;
     axios
       .post(apiUrl, newData, { params: { filename, userid: `bm_${user._id}` }  })
@@ -45,12 +37,7 @@ function UseFetchedDataCom({ mode, stockName , backendurl, code}: PageProps) {
         if (response.status === 200) {
           console.log("Data saved successfully.");
           createFile({stockname : `${stockName}-${year.year}y` , filename : filename , userId: `bm_${user._id}`})
-          toast({
-            variant: "default",
-            title: "Data Successfully Uploaded",
-            description: "You are the own this data ",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.success(`Successfully saved`);
         } else {
           console.error("Error:", response.status);
         }
@@ -58,21 +45,14 @@ function UseFetchedDataCom({ mode, stockName , backendurl, code}: PageProps) {
       .catch((error) => {
         console.error("Error:", error);
         if (error.response.status === 409) {
-          toast({
-            variant: "destructive",
-            title: "File Already exist on the server",
-            description: "Don't upload the same file",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.error("File already present")
           return;
         }
       });
   }
-
-
-
   return (
     <>
+      <Toaster/>
       {mode === "dev" ? (
         <>
           <div className="relative flex items-center   justify-center top-[290px]  mx-auto  text-white/75 w-[400px] h-[100px] ">

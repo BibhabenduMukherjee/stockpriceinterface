@@ -31,5 +31,5 @@ export default async function middleware(req : NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard', '/prediction', '/'], // Include the root URL (/) in the matcher
+  matcher: ['/dashboard', '/prediction'], // Include the root URL (/) in the matcher
 };

@@ -24,7 +24,7 @@ function Navbar() {
               font.className
             )}
           >
-            StockersBuddy
+            StockTrade
           </h1>
         </Link>
       </div>
